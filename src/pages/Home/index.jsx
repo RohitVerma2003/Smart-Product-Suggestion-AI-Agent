@@ -8,7 +8,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false)
   return (
     <div className='w-full h-full flex justify-center items-center flex-col'>
-      <div className='w-2/3 h-[80vh] mt-5 mb-2 border border-1 rounded-md relative flex flex-col'>
+      <div className='w-2/3 h-[80vh] mt-5 mb-2 border border-1 rounded-md relative flex flex-col overflow-y-scroll'>
         {chats.map((chat, index) => (
           <Message message={chat} key={index} />
         ))}

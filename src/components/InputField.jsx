@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import useParser from '../hooks/useParser'
 
 const InputField = ({ setChats, setLoading }) => {
   const [text, setText] = useState('')
-  const { parse } = useParser()
 
   const reponseAI = async () => {
     try {
@@ -12,12 +10,10 @@ const InputField = ({ setChats, setLoading }) => {
 
       let data = await fetch(uri)
       data = await data.json()
-      console.log("Response" , data);
-      const response = parse(data[0]?.output);
+      const response = data[0]?.output;
       
       const newChat = {user : false , data : response};
       setChats((prev)=>[...prev , newChat]);
-      console.log("NewChat" , newChat);
     } catch (error) {
       throw Error(error)
       console.log(error)
