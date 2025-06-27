@@ -3,4 +3,21 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: #111113;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+img:before { 
+  content: "Image is not listed";
+  display: block;
+  margin-bottom: 10px;
+}
+
+img:after { 
+  content: "";
+  display: block;
+  font-size: 12px;
 }

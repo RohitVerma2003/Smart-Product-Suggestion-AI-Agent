@@ -3,15 +3,16 @@ import React from 'react'
 const Product = ({ product }) => {
   return (
     <div className='w-full h-full'>
-      <p>Name : {product.name}</p>
-      <p>Price : ₹{product.price}</p>
+      <p className='pb-2'>Name : {product.name}</p>
+      <p className='pb-2'>Price : ₹{product.price}</p>
       <img
         src={product.image}
-        alt='Image Not Loaded...'
+        alt={"No Image Listed"}
         width={200}
         height={200}
+        onError={(e)=>e.target.style.display = 'none'}
       />
-      <div>
+      <div className='pb-2'>
         Features :
         {product.features.map((ele, index) => (
           <>
@@ -20,7 +21,7 @@ const Product = ({ product }) => {
           </>
         ))}
       </div>
-      <p>Discount : {product.discount}</p>
+      <p className='pb-2'>Discount : {product.discount}</p>
     </div>
   )
 }
