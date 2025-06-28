@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
-import { FaArrowUp } from "react-icons/fa";
+import React, { useEffect, useState } from 'react'
+import { FaArrowUp, FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa'
+import SpeechRecognition, {
+  useSpeechRecognition
+} from 'react-speech-recognition'
 
 const InputField = ({ setChats, setLoading }) => {
   const [text, setText] = useState('')
+
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition()
 
   const reponseAI = async () => {
     try {
@@ -11,9 +21,9 @@ const InputField = ({ setChats, setLoading }) => {
 
       let data = await fetch(uri)
       data = await data.json()
-      const response = data[0]?.output;
+      const response = data[0]?.output
 
-      const newChat = {user : false , data : response};
+      const newChat = { user: false, data: response }
       // const newChat = {
       //   user: false,
       //   data: [
@@ -74,21 +84,52 @@ const InputField = ({ setChats, setLoading }) => {
     setText(e.target.value)
   }
 
+  const handleStartListening = () => {
+    SpeechRecognition.startListening()
+  }
+
+  const handleStopListening = () => {
+    SpeechRecognition.stopListening()
+    resetTranscript()
+  }
+
+  useEffect(()=>{
+    setText(transcript);
+  } , [transcript])
+
   return (
     <div className='w-full h-full flex justify-center items-center rounded-md gap-2'>
       <input
         className='w-full h-full outline-none p-2 text-white border-1 border-gray-800 rounded-md bg-[#18181b]'
         type='text'
         onInput={handleChange}
-        onKeyDown={(e)=>{if(e.key === 'Enter') handleSend()}}
+        onKeyDown={e => {
+          if (e.key === 'Enter') handleSend()
+        }}
         value={text}
         placeholder='What kind of product you are looking for?'
       />
+      {listening ? (
+        <button
+          className='bg-white p-2 rounded-full hover:cursor-pointer'
+          onClick={handleStopListening}
+        >
+          <FaMicrophoneSlash color='black' />
+        </button>
+      ) : (
+        <button
+          className='bg-white p-2 rounded-full hover:cursor-pointer'
+          onClick={handleStartListening}
+        >
+          <FaMicrophone color='black' />
+        </button>
+      )}
+
       <button
         className='bg-white p-2 rounded-full hover:cursor-pointer'
         onClick={handleSend}
       >
-        <FaArrowUp color='black'/>
+        <FaArrowUp color='black' />
       </button>
     </div>
   )
