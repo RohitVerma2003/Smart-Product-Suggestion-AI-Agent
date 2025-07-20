@@ -17,7 +17,7 @@ const InputField = ({ setChats, setLoading }) => {
   const reponseAI = async () => {
     try {
       setLoading(true)
-      const uri = `https://varunbkl.app.n8n.cloud/webhook/ai?prompt=${text}`
+      const uri = `https://rohit2012.app.n8n.cloud/webhook/ai?prompt=${text}`
 
       let data = await fetch(uri)
       data = await data.json()

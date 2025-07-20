@@ -4,7 +4,7 @@ const Product = ({ product }) => {
   return (
     <div className='w-full h-full'>
       <p className='pb-2'>Name : {product.name}</p>
-      <p className='pb-2'>Price : ₹{product.price}</p>
+      <p className='pb-2'>Price : {product.price}</p>
       <img
         src={product.image}
         alt={"No Image Listed"}
